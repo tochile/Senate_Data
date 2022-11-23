@@ -30,7 +30,7 @@ mysql = MySQL(app)
 
 	
 
-@app.route('/', methods=['GET'])
+@app.route('/')
 def index():
     
     return render_template('predict.html')
