@@ -307,7 +307,7 @@ def view():
     return render_template('add.html',view=view)
 
 
-@app.route('/view_document', methods=['GET', 'POST'])
+@app.route('/view_document')
 
 def view_document():
 
