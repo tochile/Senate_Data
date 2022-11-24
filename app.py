@@ -17,6 +17,10 @@ import pandas as pd
 import pickle
 import csv
 import subprocess
+import nltk 
+nltk.download('punkt')
+nltk.download('wordnet')
+nltk.download('omw-1.4')
 
 
 app = Flask(__name__) 
