@@ -18,7 +18,6 @@ import pickle
 import csv
 import subprocess
 import nltk 
-from waitress import serve
 nltk.download('punkt')
 nltk.download('wordnet')
 nltk.download('omw-1.4')
@@ -41,7 +40,7 @@ def index():
     return render_template('predict.html')
 
 
-@app.route('/predict', methods='POST')
+@app.route('/predict', methods=['POST'])
 def predict():
     df_datas = pd.read_csv('senate.csv')
     senate_data = df_datas[['MATTER','SENATE DECISION','Category']]
@@ -321,4 +320,4 @@ def view_document():
         return render_template('add.html', view=view)
 if __name__=='__main__':
 	
-	app.run(debug=True) 
+	app.run(debug=True)
