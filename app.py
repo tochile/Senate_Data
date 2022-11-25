@@ -321,4 +321,4 @@ def view_document():
         return render_template('add.html', view=view)
 if __name__=='__main__':
 	
-	serve(app, host='0.0.0.0', port=port) 
+	app.run(debug=true) 
