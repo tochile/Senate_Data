@@ -40,7 +40,7 @@ def index():
     return render_template('predict.html')
 
 
-@app.route('/predict', methods=['POST'])
+@app.route('/predict', methods=['GET','POST'])
 def predict():
     df_datas = pd.read_csv('senate.csv')
     senate_data = df_datas[['MATTER','SENATE DECISION','Category']]
