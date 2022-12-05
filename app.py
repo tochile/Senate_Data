@@ -195,7 +195,130 @@ def predict():
        
 
     return render_template('predict.html', final_pred1=final_pred1.to_html(), select=select)
+@app.route('/add_document')
+def add_document():
+    
+    
+    cur1 = mysql.connection.cursor()
+        
+    result1 = cur1.execute("SELECT * from senate_data")
+    if(result1>0):
+        
+    
+        view = cur1.fetchall()
+    
+    if request.method == 'POST':
+        
+        file = request.files['file']
+            
+        basepath = os.path.dirname(__file__)
+        filename = secure_filename(file.filename)
+        
+        file_path = os.path.join(
+            
+            basepath, '', filename)
 
+        file.save(file_path)
+        
+
+        
+        cur = mysql.connection.cursor()
+        query = "INSERT INTO senate_data (meeting) VALUES (%s)"
+        cur.execute(query, (filename, ))
+        mysql.connection.commit()
+        cur.close()
+        marked = 'sucessful'
+        
+        
+       
+            
+            
+            
+
+        return render_template('add.html', marked=marked, view=view)
+    
+    return render_template('add.html')
+
+
+@app.route('/document', methods=["POST"])
+
+def document():
+    
+    
+    if request.method == 'POST':
+        
+        file = request.files['file']
+            
+        basepath = os.path.dirname(__file__)
+        filename = secure_filename(file.filename)
+        
+        file_path = os.path.join(
+            
+            basepath, '', filename)
+
+        file.save(file_path)
+        
+
+        
+        cur = mysql.connection.cursor()
+        query = "INSERT INTO senate_data (meeting) VALUES (%s)"
+        cur.execute(query, (filename, ))
+        mysql.connection.commit()
+        cur.close()
+        marked = 'sucessful'
+        
+        
+        cur1 = mysql.connection.cursor()
+        
+        result1 = cur1.execute("SELECT * from senate_data")
+        if(result1>0):
+        
+            view = cur1.fetchall()
+            
+            
+            
+
+        return render_template('add.html', marked=marked, view=view)
+        
+    return render_template('add.html')
+
+@app.route('/view', methods=['POST'])
+def view():
+
+    if request.method == 'POST':
+        cur1 = mysql.connection.cursor()
+        
+        result1 = cur1.execute("SELECT * from senate_data")
+        if(result1>0):
+        
+            view = cur1.fetchall()
+            
+
+        doc = request.form['tochi']
+        
+        basepath = os.path.dirname(__file__)
+        file_path = os.path.join(
+
+
+            basepath, 'static/uploads', doc)
+        
+        
+        subprocess.Popen([file_path], shell=True)
+
+    return render_template('add.html',view=view)
+
+
+@app.route('/view_document')
+
+def view_document():
+
+    cur1 = mysql.connection.cursor()
+        
+    result1 = cur1.execute("SELECT * from senate_data")
+    if(result1>0):
+        view = cur1.fetchall()
+            
+        return render_template('add.html', view=view)
 
 if __name__=='__main__':
 	
