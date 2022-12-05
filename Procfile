@@ -1,2 +1,1 @@
-web: go-server-web
-worker: /go-server-worker
+web: gunicorn app:app
