@@ -1,2 +1,1 @@
-web: /Senate_Data-web
-worker: /Senate_Data-worker
+web: gunicorn --bind 0.0.0.0:$PORT flaskapp:app
