@@ -6,7 +6,7 @@ Created on Wed Oct  6 21:27:07 2021
 """
 
 from __future__ import division, print_function
-from flask import Flask,render_template,url_for,request
+from flask import Flask,render_template,url_for,request, send_file
 from flask_bootstrap import Bootstrap
 import os
 from flask_mysqldb import MySQL
@@ -21,18 +21,16 @@ import nltk
 nltk.download('punkt')
 nltk.download('wordnet')
 nltk.download('omw-1.4')
-nltk.download('stopwords')
+
 
 app = Flask(__name__) 
 Bootstrap(app)
-
 db = yaml.load(open('db.yaml'))
 app.config['MYSQL_HOST'] = db['mysql_host']
 app.config['MYSQL_USER'] = db['mysql_user']
 app.config['MYSQL_PASSWORD'] = db['mysql_password']
 app.config['MYSQL_DB'] = db['mysql_db']
 mysql = MySQL(app)
-
 
 	
 
@@ -42,7 +40,7 @@ def index():
     return render_template('predict.html')
 
 
-@app.route('/predict', methods=['GET','POST'])
+@app.route('/predict', methods=['POST'])
 def predict():
     df_datas = pd.read_csv('senate.csv')
     senate_data = df_datas[['MATTER','SENATE DECISION','Category']]
@@ -195,6 +193,7 @@ def predict():
        
 
     return render_template('predict.html', final_pred1=final_pred1.to_html(), select=select)
+
 @app.route('/add_document')
 def add_document():
     
@@ -283,6 +282,9 @@ def document():
     return render_template('add.html')
 
 @app.route('/view', methods=['POST'])
+
+
+
 def view():
 
     if request.method == 'POST':
@@ -303,9 +305,17 @@ def view():
             basepath, 'static/uploads', doc)
         
         
-        subprocess.Popen([file_path], shell=True)
+        p = file_path
 
+        
+       
+        subprocess.Popen([file_path], shell=True)
+        
+        
+       
+    return send_file(p, as_attachment=True)
     return render_template('add.html',view=view)
+
 
 
 @app.route('/view_document')
@@ -319,7 +329,6 @@ def view_document():
         view = cur1.fetchall()
             
         return render_template('add.html', view=view)
-
 if __name__=='__main__':
 	
 	app.run(debug=True)
