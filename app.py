@@ -300,13 +300,13 @@ def view():
             
 
         doc = request.form['tochi']
-        
+        filename = secure_filename(doc.filename)
         basepath = os.path.dirname(__file__)
         file_path = os.path.join(
 		'uploads', doc)
         
         
-        p = 'uploads/'doc
+        p = 'uploads/',filename
 
         
        
