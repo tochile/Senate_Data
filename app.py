@@ -38,6 +38,7 @@ mysql = MySQL(app)
 
 @app.route('/')
 def index():
+	
     
     return render_template('predict.html')
 
@@ -122,7 +123,7 @@ def predict():
         
         file_path = os.path.join(
             
-            basepath, 'static/uploads', secure_filename(file.filename))
+            basepath, 'uploads', secure_filename(file.filename))
         file.save(file_path)
         
         from docx.api import Document
