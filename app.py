@@ -306,7 +306,7 @@ def view():
 		'uploads', doc)
         
         
-        p = file_path
+        p = 'uploads/MAJOR_DECISIONS_OF_SENATE-Jan_2015-Dec._2017_.docx'
 
         
        
