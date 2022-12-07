@@ -303,9 +303,7 @@ def view():
         
         basepath = os.path.dirname(__file__)
         file_path = os.path.join(
-
-
-            basepath, 'uploads', doc)
+		'uploads', doc)
         
         
         p = file_path
