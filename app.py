@@ -331,7 +331,7 @@ def view_document():
         view = cur1.fetchall()
             
         return render_template('add.html', view=view)
-'''
+
 if __name__=='__main__':
 	
 	app.run(debug=True)
